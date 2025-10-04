@@ -10,9 +10,8 @@ import SwiftUI
 struct card: View {
     @State private var angulo: Angle = .degrees(0)
     @State private var visible: Bool = true
-    @State private var bgcolor2: Color = .gray
     @State private var colorinvalid: Color = .gray
-    @State private var coloreal: Color = .gray
+    @State private var coloreal: Color = .clear
     @State private var height: CGFloat = 150
     
     let logo_bank: String
@@ -50,20 +49,18 @@ struct card: View {
 
                                 if visible {
                                     angulo -= .degrees(180)
-                                    coloreal=colorinvalid
+                                    coloreal = colorinvalid
                                     visible = false
-                                    height=100
-                                }else{
-                                    visible=true
+                                    height = 100
+                                } else {
+                                    visible = true
                                     angulo += .degrees(180)
-                                    coloreal=bgcolor
-                                    height=150
-
-
+                                    coloreal = bgcolor
+                                    height = 150
                                 }
 
                             }
-                        }, label:   {
+                        }, label: {
                             Image(systemName: "lock")
 
                             Text("Bloquear")
@@ -111,23 +108,18 @@ struct card: View {
             
         }
         .padding(10)
-
         .frame(width: 350, height: height)
-
         .background(coloreal)
-
         .cornerRadius(20)
-
         .foregroundStyle(.white)
         .rotation3DEffect(
-
             angulo,
-
             axis: (x: 0, y: 1, z: 0),
-
             perspective: 0.8
-
         )
+        .onAppear {
+            coloreal = bgcolor
+        }
 
     }
 }
